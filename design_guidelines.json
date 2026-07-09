@@ -1,0 +1,108 @@
+{
+  "theme": "dark_forced",
+  "theme_description": "Terminal/Hacker aesthetic combined with modern dev-tool minimalism (Linear/Vercel style). Deep space black with high-contrast borders and cyan phosphor accents.",
+  "typography": {
+    "headings": {
+      "family": "Outfit, sans-serif",
+      "weight": "font-bold to font-black",
+      "style": "tracking-tighter",
+      "usage": "Use for all main headers (H1, H2, H3). NEVER use Inter. Keep H1 fluid between text-4xl and text-6xl."
+    },
+    "body": {
+      "family": "Geist, sans-serif",
+      "weight": "font-normal",
+      "usage": "Use for body copy, paragraphs, and standard UI text."
+    },
+    "code": {
+      "family": "'JetBrains Mono', monospace",
+      "weight": "font-medium",
+      "usage": "Use for all code blocks, terminal mockups, inline code, and CLI install commands. Mandatory for the 'hacker/terminal' aesthetic."
+    }
+  },
+  "colors": {
+    "css_variables_override": {
+      "--background": "0 0% 2%",
+      "--foreground": "0 0% 98%",
+      "--card": "0 0% 5%",
+      "--card-foreground": "0 0% 98%",
+      "--popover": "0 0% 5%",
+      "--popover-foreground": "0 0% 98%",
+      "--primary": "189 100% 50%", 
+      "--primary-foreground": "0 0% 0%",
+      "--secondary": "0 0% 10%",
+      "--secondary-foreground": "0 0% 98%",
+      "--muted": "0 0% 10%",
+      "--muted-foreground": "0 0% 65%",
+      "--accent": "189 100% 50%",
+      "--accent-foreground": "0 0% 0%",
+      "--destructive": "0 84% 60%",
+      "--destructive-foreground": "0 0% 98%",
+      "--border": "0 0% 12%",
+      "--input": "0 0% 12%",
+      "--ring": "189 100% 50%"
+    },
+    "palette_strategy": "Base is deep black (#0505). Cards are slightly elevated (#0D0D0D). Borders are stark and visible (#1F1F1F). The primary accent is 'Phosphor Cyan' (HSL: 189 100% 50% / #00E5FF) to simulate a retro-futuristic terminal glow without the cliché Matrix green. Use a muted lime/emerald for positive signals (like minimalism check passes). DO NOT use purple/violet."
+  },
+  "visual_enhancers": {
+    "surfaces": "Grid Borders (The 'Technical' Look): Expose the skeleton. Container uses border-collapse style layout. Items have subtle borders on right and bottom. Dark gray surfaces with light subtle borders.",
+    "effects": "Subtle scanlines on terminal sections. Glassmorphism for floating headers (bg-black/60 with backdrop-blur-xl and border-b border-white/10). No full-screen gradients.",
+    "icons": "Use lucide-react for standard icons. Consider @phosphor-icons/react if more technical fidelity is needed. No emojis for icons."
+  },
+  "grids_and_layouts": {
+    "spacing": "Generous Spacing Philosophy. Use 2-3x more spacing. Tailwind p-8, p-12, p-16 for containers. Cards must have internal padding (p-6 or p-8).",
+    "bento_grid": "Mode B: High Density Grid for the Code Playground and Analysis Tabs. Strict grid hierarchy, dense and compact spacing.",
+    "alignment": "Mobile-first responsive. Optical alignment over geometrical. Left-aligned/asymmetric layouts. Make the code panels feel like a real editor."
+  },
+  "components": {
+    "buttons": "Sharp geometric edges or very subtle roundness (rounded-md max). Primary buttons have Cyan background with black text. Hover state: bg-cyan-400. Focus: ring-cyan-500. Add micro-interaction: active:scale-95.",
+    "tabs": "Override Shadcn tabs to look like a modern code editor tab list (like VS Code). No pills, just flat tabs with a bottom active border (border-b-2 border-cyan-500) and sharp text color transition.",
+    "code_playground": "Left pane: Code input editor with line numbers (simulated or real). Right pane: 4 Analysis Tabs. Must feel like a seamless IDE. Use JetBrains Mono.",
+    "terminal_cli": "A block simulating a terminal window for the install commands. Include macOS style window controls (red/yellow/green dots) or minimalist square controls. Monospace font, glowing cyan prompt indicator ($).",
+    "model_selector": "Shadcn Select or Dropdown. Style it like a status bar item at the bottom right of the 'editor' or top right. Models: Claude Sonnet 4.5, Gemini 3 Flash, GPT-5.2."
+  },
+  "motion": {
+    "transitions": "Use specific properties (e.g., transition-colors, transition-transform duration-200 ease-in-out). NEVER use transition-all.",
+    "animations": "Staggered load animations for analysis results. Hover states on all interactive elements. Micro-interactions for buttons.",
+    "reduced_motion": "Respect prefers-reduced-motion by keeping animations minimal or togglable via CSS media queries."
+  },
+  "accessibility": {
+    "contrast": "Ensure text against dark backgrounds meets APCA standards. Light gray (text-gray-300) for body, pure white (text-white) for headings.",
+    "testing": "All interactive elements MUST include data-testid attributes (kebab-case, role-based).",
+    "focus": "Clear focus rings (ring-2 ring-cyan-500 ring-offset-2 ring-offset-black)."
+  },
+  "media": {
+    "images": "No stock photos required for this CLI/Dev Tool aesthetic. Rely on typography, grid lines, syntax highlighting, and layout for visual interest. Can use SVG abstract patterns or noise textures for backgrounds."
+  },
+  "pages_and_features": {
+    "landing_hero": "H1: 'Less code. More impact.' or similar minimalist ethos. Subheading explaining CodeSage. Two primary CTAs: 'Install CLI' and 'VS Code Extension'.",
+    "code_playground": "Interactive section. Paste code -> get review. Tabs: (1) Code Review (bugs/security), (2) Line-by-line, (3) Library Suggestions (stars, install), (4) Minimalism Check.",
+    "feature_cards": "Bento grid explaining the open-source nature, github integration, and the 'powerful libraries over raw code' philosophy.",
+    "footer": "Simple, technical. Links to Docs, GitHub, npm, VS Code Marketplace."
+  },
+  "instructions_to_main_agent": [
+    "Force dark mode by overriding index.css variables to match the Electric Neon + Retro-Futurism aesthetic.",
+    "Implement the UI using raw HTML/Tailwind for the landing page structure, and Shadcn components for the interactive playground (Tabs, Select, Buttons, Cards).",
+    "DO NOT use generic centered layouts or simplistic purple/violet gradients.",
+    "Apply 'data-testid' to all buttons, tabs, and form inputs.",
+    "Ensure the code playground looks like a legitimate code editor (e.g., VS Code or Linear's internal tools).",
+    "The analysis output should display diffs or minimal code suggestions clearly, using JetBrains Mono.",
+    "Avoid the 'AI slop' look. No emojis for UI elements. Use sleek lucide-react icons (e.g., Terminal, Zap, Shield).",
+    "Create a noise/grain texture overlay using a base64 SVG or CSS to enhance the terminal/hacker vibe.",
+    "Do NOT use HTML <select> or <input type='date'>. Rely entirely on Shadcn components for complex interactions."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "You MUST NOT apply universal transition (e.g., transition: all). Always add transitions for specific interactive elements.",
+    "You MUST NOT center align the app container (.App { text-align: center; }).",
+    "Always use modern button styles (sharp or rounded-md) with interaction animations & color relevant to the app style.",
+    "NEVER use AI assistant Emoji characters for icons.",
+    "Every interaction needs micro-animations - hover states, transitions. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states: separates good from extraordinary.",
+    "Prioritize using pre-existing components from src/components/ui. Create new matching components when needed.",
+    "Use sonner for toast notifications."
+  ]
+}
