@@ -1,0 +1,28 @@
+{
+  "name": "laconic",
+  "version": "0.1.0",
+  "description": "Write less. Ship more. A ruleset that teaches your AI agent to reuse before rewriting — walks a lazy-senior-dev ladder before any code is written.",
+  "contextFileName": "AGENTS.md",
+  "commands": [
+    {
+      "name": "laconic",
+      "description": "Show the Laconic ladder and current mode."
+    },
+    {
+      "name": "laconic-review",
+      "description": "Review the current diff for over-engineering. Returns a delete-list."
+    },
+    {
+      "name": "laconic-explain",
+      "description": "Line-by-line what/why/how explanation of the current file or selection."
+    },
+    {
+      "name": "laconic-libs",
+      "description": "Suggest open-source libraries that would replace the current code."
+    },
+    {
+      "name": "laconic-minimal",
+      "description": "Rewrite the current code as the minimum that works, preserving safety."
+    }
+  ]
+}
