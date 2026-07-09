@@ -37,7 +37,7 @@ const INSTALLS = {
   antigravity: {
     label: "Antigravity",
     subtitle: "Google's agentic IDE (agy CLI)",
-    lines: ["$ agy plugin install \\", "    https://github.com/YOUR-USER/laconic"],
+    lines: ["$ agy plugin install \\", "    https://github.com/SDM002/Universal-Code"],
     note: "Or drop AGENTS.md at your workspace root — Antigravity auto-loads it as always-on context.",
   },
   vscode: {
@@ -47,7 +47,7 @@ const INSTALLS = {
       "$ mkdir -p .github && curl -o .github/\\",
       "    copilot-instructions.md \\",
       "    https://raw.githubusercontent.com/\\",
-      "    YOUR-USER/laconic/main/\\",
+      "    SDM002/Universal-Code/main/\\",
       "    .github/copilot-instructions.md",
     ],
     note: "Reload the VS Code window. Copilot now walks the ladder on every prompt.",
@@ -59,7 +59,7 @@ const INSTALLS = {
       "# Claude Code / Codex / Amp / Jules",
       "$ curl -o AGENTS.md \\",
       "    https://raw.githubusercontent.com/\\",
-      "    YOUR-USER/laconic/main/AGENTS.md",
+      "    SDM002/Universal-Code/main/AGENTS.md",
       "",
       "# Cursor:  .cursor/rules/laconic.md",
       "# Windsurf: .windsurf/rules/laconic.md",
@@ -183,7 +183,7 @@ const Home = () => {
             <a href="#commands" className="text-neutral-400 hover:text-white transition-colors">commands</a>
             <a
               data-testid="github-nav"
-              href="https://github.com/YOUR-USER/laconic"
+              href="https://github.com/SDM002/Universal-Code"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-neutral-300 hover:text-cyan-400 transition-colors"
@@ -224,7 +224,7 @@ const Home = () => {
               </a>
               <a
                 data-testid="cta-github"
-                href="https://github.com/YOUR-USER/laconic"
+                href="https://github.com/SDM002/Universal-Code"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 border border-white/15 hover:border-cyan-400/50 text-white px-5 py-2.5 rounded-md transition-colors"
@@ -240,13 +240,13 @@ const Home = () => {
               lines={[
                 "# antigravity",
                 "$ agy plugin install \\",
-                "    github.com/YOUR-USER/laconic",
+                "    github.com/SDM002/Universal-Code",
                 "",
                 "# vs code (copilot chat)",
                 "$ curl -o .github/\\",
                 "  copilot-instructions.md \\",
                 "  https://raw.githubusercontent.com/\\",
-                "  YOUR-USER/laconic/main/\\",
+                "  SDM002/Universal-Code/main/\\",
                 "  .github/copilot-instructions.md",
                 "",
                 "laconic: active · full mode",
@@ -351,7 +351,7 @@ const Home = () => {
                 </p>
                 <p className="text-sm">{INSTALLS[tab].note}</p>
                 <p className="text-xs font-mono text-neutral-600 mt-6">
-                  Replace <span className="text-cyan-400">YOUR-USER</span> with the GitHub owner once the repo is forked.
+                  Fork the repo → drop the file → your agent walks the ladder.
                 </p>
               </div>
             </div>
@@ -443,10 +443,10 @@ const Home = () => {
           <div>
             <p className="text-neutral-400 font-medium mb-3">Links</p>
             <ul className="space-y-2 text-neutral-500">
-              <li><a href="https://github.com/YOUR-USER/laconic" className="hover:text-cyan-400 transition-colors">GitHub</a></li>
-              <li><a href="https://github.com/YOUR-USER/laconic#install" className="hover:text-cyan-400 transition-colors">Install docs</a></li>
-              <li><a href="https://github.com/YOUR-USER/laconic/blob/main/skills/laconic.md" className="hover:text-cyan-400 transition-colors">The ruleset</a></li>
-              <li><a href="https://github.com/YOUR-USER/laconic/blob/main/LICENSE" className="hover:text-cyan-400 transition-colors">MIT license</a></li>
+              <li><a href="https://github.com/SDM002/Universal-Code" className="hover:text-cyan-400 transition-colors">GitHub</a></li>
+              <li><a href="https://github.com/SDM002/Universal-Code#install" className="hover:text-cyan-400 transition-colors">Install docs</a></li>
+              <li><a href="https://github.com/SDM002/Universal-Code/blob/main/skills/laconic.md" className="hover:text-cyan-400 transition-colors">The ruleset</a></li>
+              <li><a href="https://github.com/SDM002/Universal-Code/blob/main/LICENSE" className="hover:text-cyan-400 transition-colors">MIT license</a></li>
             </ul>
           </div>
           <div>

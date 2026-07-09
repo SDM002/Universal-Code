@@ -46,11 +46,11 @@ Copy Laconic's instructions into your project (or globally):
 # in your project root
 mkdir -p .github
 curl -o .github/copilot-instructions.md \
-  https://raw.githubusercontent.com/YOUR-USERNAME/laconic/main/.github/copilot-instructions.md
+  https://raw.githubusercontent.com/SDM002/Universal-Code/main/.github/copilot-instructions.md
 
 # also drop AGENTS.md — most modern agents read this
 curl -o AGENTS.md \
-  https://raw.githubusercontent.com/YOUR-USERNAME/laconic/main/AGENTS.md
+  https://raw.githubusercontent.com/SDM002/Universal-Code/main/AGENTS.md
 ```
 
 Reload the VS Code window (or restart Copilot Chat). Your agent now walks the ladder on every prompt. To make it global, drop the same files at `~/.copilot/copilot-instructions.md`.
@@ -60,7 +60,7 @@ Reload the VS Code window (or restart Copilot Chat). Your agent now walks the la
 Antigravity CLI (the `agy` binary) installs Laconic like any Gemini extension:
 
 ```bash
-agy plugin install https://github.com/YOUR-USERNAME/laconic
+agy plugin install https://github.com/SDM002/Universal-Code
 ```
 
 That's it. The `AGENTS.md` and the five skill commands (`/laconic`, `/laconic-review`, `/laconic-explain`, `/laconic-libs`, `/laconic-minimal`) become available in every session.
@@ -96,6 +96,14 @@ Available in skill-capable agents (Antigravity, Claude Code, Codex, OpenCode, an
 | `/laconic-minimal` | Rewrite the current code as the minimum that works. Preserves behavior, security, and accessibility. |
 
 In VS Code Copilot Chat (no `/skills` support), just paste the intent into chat: _"review this diff with laconic"_, _"explain this function laconic-style"_, _"suggest a library instead of this hand-rolled code"_.
+
+## Language cheat sheets
+
+The ruleset ships with per-language memory banks so the agent stops reinventing stdlib. These are auto-loaded on skill-capable hosts and can be dropped into your project alongside `AGENTS.md`:
+
+- **Python** — [`skills/lang/python.md`](./skills/lang/python.md) — `pathlib`, `slog`-ish `logging`, `zoneinfo`, `functools.cache`, when `httpx` / `pydantic` / `duckdb` / `polars` earn their keep.
+- **JavaScript / TypeScript** — [`skills/lang/js.md`](./skills/lang/js.md) — the enormous list of npm packages the browser already ships (`<input type="date">`, `structuredClone`, `Intl`, `<dialog>`, `crypto.randomUUID`), plus Node stdlib and the small set of libs that actually earn a slot (`zod`, `ky`, `zustand`, `@tanstack/react-query`).
+- **Go** — [`skills/lang/go.md`](./skills/lang/go.md) — `slices` / `maps` / `iter`, `log/slog`, `net/http.ServeMux` since 1.22, `errgroup`, and the boring-good modules that earn a place (`pgx`, `chi`, `sqlx`).
 
 ---
 

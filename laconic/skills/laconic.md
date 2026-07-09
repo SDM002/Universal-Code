@@ -76,3 +76,11 @@ Build it. Slowly. Correctly. Note in a comment: `// laconic: kept at user reques
 ## The final rule
 
 **Laziness with taste.** Not fewer tokens for the sake of it — fewer lines because they weren't necessary. The code you never wrote has zero bugs, zero CVEs, zero maintenance, and 100% uptime.
+
+## Language cheat sheets
+
+When you know the language, load the matching sheet as extra context — it's the memory bank for rungs 3 (stdlib) and 4 (native) so you don't over-index a dependency where the platform already has one:
+
+- **Python** → [`skills/lang/python.md`](./lang/python.md)
+- **JavaScript / TypeScript / React / Node** → [`skills/lang/js.md`](./lang/js.md)
+- **Go** → [`skills/lang/go.md`](./lang/go.md)
