@@ -313,6 +313,18 @@ const Home = () => {
               <CodeBlock code={AFTER} lang="html" label="BirthdayField.tsx" />
             </div>
           </div>
+
+          <div className="mt-8">
+            <a
+              data-testid="cta-examples"
+              href="https://github.com/SDM002/Universal-Code/tree/main/examples"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-medium"
+            >
+              8 more real-world examples on GitHub <ArrowRight size={15} />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -444,8 +456,9 @@ const Home = () => {
             <p className="text-neutral-400 font-medium mb-3">Links</p>
             <ul className="space-y-2 text-neutral-500">
               <li><a href="https://github.com/SDM002/Universal-Code" className="hover:text-cyan-400 transition-colors">GitHub</a></li>
-              <li><a href="https://github.com/SDM002/Universal-Code#install" className="hover:text-cyan-400 transition-colors">Install docs</a></li>
+              <li><a href="https://github.com/SDM002/Universal-Code/tree/main/examples" className="hover:text-cyan-400 transition-colors">Examples</a></li>
               <li><a href="https://github.com/SDM002/Universal-Code/blob/main/skills/laconic.md" className="hover:text-cyan-400 transition-colors">The ruleset</a></li>
+              <li><a href="https://github.com/SDM002/Universal-Code/blob/main/CONTRIBUTING.md" className="hover:text-cyan-400 transition-colors">Contribute</a></li>
               <li><a href="https://github.com/SDM002/Universal-Code/blob/main/LICENSE" className="hover:text-cyan-400 transition-colors">MIT license</a></li>
             </ul>
           </div>

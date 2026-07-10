@@ -78,6 +78,13 @@ agenthub/agents/youtube/db
 
 memory/test_credentials.md
 
+# Emergent workspace-only
+/memory/
+/test_reports/
+/test_result.md
+/design_guidelines.json
+.emergent/
+
 # Mobile development
 android-sdk/
 .env

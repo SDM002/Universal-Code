@@ -1,0 +1,50 @@
+name: lint
+
+on:
+  pull_request:
+    paths:
+      - "**/*.md"
+      - "**/*.json"
+  push:
+    branches: [main]
+    paths:
+      - "**/*.md"
+      - "**/*.json"
+
+jobs:
+  markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: |
+            **/*.md
+            !frontend/**
+            !backend/**
+            !node_modules/**
+            !memory/**
+            !test_reports/**
+          config: |
+            {
+              "default": true,
+              "line-length": false,
+              "no-inline-html": false,
+              "no-duplicate-heading": false,
+              "no-multiple-blanks": { "maximum": 2 },
+              "no-trailing-punctuation": false,
+              "first-line-heading": false,
+              "no-bare-urls": false
+            }
+
+  json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON
+        run: |
+          for f in $(find . -name "*.json" -not -path "./node_modules/*" -not -path "./frontend/*" -not -path "./backend/*"); do
+            echo "Checking $f"
+            python3 -c "import json,sys; json.load(open('$f'))"
+          done

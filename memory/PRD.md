@@ -6,68 +6,95 @@
 
 ## Product
 
-**Laconic** — an open-source ruleset (markdown skill pack, MIT) that plugs into AI coding agents (Antigravity, VS Code Copilot Chat, Claude Code, Codex, Cursor, Windsurf, Cline, etc.) and teaches them to walk a **lazy-senior-dev ladder** before writing any code. **No backend LLM required** — the ruleset piggybacks on the agent the developer already uses. Ponytail-style delivery.
+**Laconic** — an open-source (MIT) ruleset that plugs into AI coding agents (Antigravity, VS Code Copilot Chat, Claude Code, Codex, Cursor, Windsurf, Cline, Junie, Amp, Jules, CodeWhale). Teaches them to walk a lazy-senior-dev **ladder** before writing code. Zero infra, zero API keys, zero cost. Monorepo hosting the ruleset + live landing page + examples gallery.
 
-Deliverables:
-- `/app/laconic/` — the fork-ready GitHub repo (ruleset + adapters + install docs)
-- Landing page at the preview URL — hero, ladder, before/after example, install tabs (Antigravity / VS Code / Others), commands, non-negotiables, footer
+Live: https://code-explain-ai-3.emergent.host
+GitHub target: https://github.com/SDM002/Universal-Code
 
 ## User personas
 
-- **Individual developers** using Antigravity / VS Code Copilot / Cursor who are tired of their agent over-building.
-- **Team leads / staff engineers** wanting to standardize agent behaviour across a codebase (via `AGENTS.md` in repo).
-- **OSS maintainers** who want contributors' AI-generated PRs to reuse before rewriting.
+- **Individual developers** on Antigravity / VS Code Copilot / Cursor who are tired of their agent over-building.
+- **Team leads / staff engineers** wanting to standardize agent behaviour across a codebase.
+- **OSS contributors** who want their PRs (AI-drafted or otherwise) to reuse before rewriting.
+- **Contest / hackathon judges** — scanning a public GitHub repo for signs of a live OSS project.
 
-## Core requirements (static)
+## Core requirements
 
-1. Markdown-only ruleset, agent-agnostic, zero infra.
+1. Markdown-only ruleset, agent-agnostic, zero infrastructure.
 2. The ladder (YAGNI → reuse → stdlib → native → installed dep → open-source lib → one-liner → minimum-that-works).
 3. Never touch security / trust boundaries / accessibility / data-loss handling.
 4. Five commands: `/laconic`, `/laconic-review`, `/laconic-explain`, `/laconic-libs`, `/laconic-minimal`.
 5. Install docs for Antigravity + VS Code Copilot Chat as P0; other agents as bonus.
-6. Landing page that markets the project + hosts install commands.
+6. Public landing page that markets the project + hosts install commands.
+7. Community kit — CONTRIBUTING, SECURITY, issue templates, PR template, CI lint — so contributors can plug in.
 
-## What's been implemented (Jan 2026)
+## Repo structure (as of Jan 10, 2026)
 
-- `laconic/skills/laconic.md` — the always-on ruleset (full ladder + non-negotiables + code style + library-suggestion contract).
-- `laconic/skills/laconic-review.md` — `/laconic-review` command spec (delete-list format).
-- `laconic/skills/laconic-explain.md` — `/laconic-explain` line-by-line what/why/how table format.
-- `laconic/skills/laconic-libs.md` — `/laconic-libs` real-package-only library suggestion format.
-- `laconic/skills/laconic-minimal.md` — `/laconic-minimal` rewrite spec (before/after/what-changed/what-stayed).
-- `laconic/AGENTS.md` — compact universal ruleset (auto-loaded by VS Code Copilot, Antigravity, Claude Code, Codex, Amp, Jules, CodeWhale, Junie).
-- `laconic/.github/copilot-instructions.md` — VS Code Copilot Chat specific.
-- `laconic/gemini-extension.json` — Antigravity/Gemini CLI plugin manifest with 5 commands.
-- `laconic/package.json` — npm-publishable manifest.
-- `laconic/LICENSE` — MIT.
-- `laconic/README.md` — full install docs (Antigravity + VS Code first, others tabled).
-- Landing page (React) at `/app/frontend/src/App.js` with:
-  - Sticky glass nav
-  - Hero (Outfit black display type, cyan accent, terminal panel)
-  - The Ladder (8-rung grid with hover states)
-  - Before/After date-picker code compare
-  - Install tabs (Antigravity / VS Code / Others) with copy-to-clipboard
-  - Commands grid (5 commands, icons)
-  - Non-negotiables (2×3 bento)
-  - Footer with cursor-blink slogan
-- Backend stripped to health-check only (`/api/`, `/api/health`) — no LLM dependency.
+```
+Universal-Code/
+├── skills/                                the ruleset
+│   ├── laconic.md, laconic-review.md, laconic-explain.md, laconic-libs.md, laconic-minimal.md
+│   └── lang/{python,js,go}.md             stdlib cheat sheets
+├── examples/                              8 before/after files
+├── AGENTS.md                              universal ruleset entry point
+├── gemini-extension.json                  Antigravity (agy) plugin manifest
+├── .github/
+│   ├── copilot-instructions.md            VS Code Copilot Chat entry point
+│   ├── ISSUE_TEMPLATE/{bug-in-rule, new-agent-support, new-language-sheet}.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── workflows/lint.yml                 markdown + JSON lint on PR
+├── frontend/                              React landing page (deployed live)
+├── backend/                               minimal FastAPI health check
+├── package.json                           @sdm002/laconic, npm-publishable
+├── LICENSE                                MIT
+├── README.md                              badges, install, ladder, examples, layout
+├── CONTRIBUTING.md
+├── SECURITY.md
+└── .gitignore
+```
+
+## What's been implemented
+
+**Jan 9**
+- Ruleset (`skills/laconic.md`) + 4 skill commands (`review`, `explain`, `libs`, `minimal`).
+- `AGENTS.md` (universal), `.github/copilot-instructions.md` (VS Code), `gemini-extension.json` (Antigravity).
+- Landing page — hero, ladder, before/after, install tabs, commands, non-negotiables, footer. Dark terminal aesthetic (Outfit + Geist + JetBrains Mono, cyan phosphor accent, grain, scanlines).
+- Backend stripped to health-check only.
+
+**Jan 10**
+- Language cheat sheets: `skills/lang/python.md`, `js.md`, `go.md`.
+- `YOUR-USER` → `SDM002/Universal-Code` swap across README + landing page.
+- Monorepo restructure — ruleset moved to repo root (ponytail-style) so forks look right.
+- OSS community kit:
+  - `CONTRIBUTING.md`, `SECURITY.md`
+  - `.github/ISSUE_TEMPLATE/` × 3 (bug in rule / new agent / new language)
+  - `.github/PULL_REQUEST_TEMPLATE.md`
+  - `.github/workflows/lint.yml` (markdown + JSON lint on PR)
+  - `.gitignore` updated for workspace files
+- **`examples/`** — 8 real-world before/after files: React date picker, Python retry, JS deep-clone, Go slice utils, form validation, Node fs helpers, lodash alternatives, custom event emitter.
+- README rewritten with badges (MIT / PRs Welcome / GH Actions / Live Site) + repo-layout diagram + examples link.
+- `package.json` renamed to `@sdm002/laconic` with `homepage`, `repository`, `bugs`, keywords.
+- Landing page now has "8 more real-world examples on GitHub" CTA in the before/after section.
 
 ## Verified
 
-- Backend `/api/` and `/api/health` respond OK.
-- Landing page loads at preview URL; tabs switch content; all sections render; typography (Outfit / Geist / JetBrains Mono) loads; cyan accent + dark theme + terminal panels intact.
+- Backend `/api/` + `/api/health` respond OK.
+- Landing page renders cleanly at preview URL — hero, ladder, before/after with new examples CTA, install tabs, commands grid all working.
+- ESLint clean on `App.js`.
 
-## Prioritized backlog
+## What's next (user needs to do)
 
-- **P1** — Replace all `YOUR-USER` placeholders in the ruleset repo with the real GitHub owner once forked.
-- **P1** — Add per-language cheat-sheets under `skills/lang/` (`python.md`, `js.md`, `go.md`) — most common stdlib / native replacements per ecosystem.
-- **P2** — Cursor / Windsurf / Cline / Kiro `.rules/` mirror files (currently documented in README; not yet committed as files).
-- **P2** — `benchmarks/` — reproduce the ponytail-style "% less code" measurement with a headless Copilot / Antigravity session.
-- **P2** — `hooks/` — Node.js lifecycle hooks for skill-capable hosts (Claude Code, Codex) so the ruleset auto-activates without manual `/plugin install`.
-- **P3** — Landing page: a "try live" playground that takes pasted code and returns a `/laconic-review`-style delete-list (would need an LLM backend — deliberately deferred; the core value doesn't need it).
+1. **Push to GitHub** — use Emergent's "Save to GitHub" button in the chat input → connect to `SDM002/Universal-Code`. `.gitignore` will exclude `/memory`, `/test_reports`, `/design_guidelines.json`.
+2. **Repo settings on GitHub** — set to Public, add topics (`ai-agent`, `ai-coding`, `antigravity`, `copilot`, `minimalism`, `open-source`, `yagni`, `code-review`), enable Discussions, add the live URL as the repo website.
+3. **npm publish** (locally): `npm login` → create `@sdm002` scope on npmjs.com (free) → `npm publish --access public`.
+4. **Contest submission** — email support@emergent.sh for Raj Shamani contest official rules; the project is submission-ready (deployed, public repo, README, examples).
+5. **GitHub social preview image** — `.github/preview.png` for the card that renders on X/LinkedIn shares.
 
-## Next tasks (if the user continues)
+## Backlog
 
-1. Have the user fork the repo → replace `YOUR-USER` string across README + landing page (single find/replace).
-2. Publish to npm (`npm publish --access public`) so `agy plugin install @laconic/skill` works.
-3. Add language cheat-sheets (Python, JS/TS, Go — the big three).
-4. Ship Cursor / Windsurf / Cline rule mirror files.
+- **P1** — Cursor / Windsurf / Cline mirror rule files (currently only documented in README).
+- **P1** — Discord / Discussions link (placeholder in CONTRIBUTING.md and SECURITY.md).
+- **P2** — Rust / Ruby / PHP / Kotlin language sheets.
+- **P2** — `benchmarks/` — reproduce ponytail-style "% less code" measurement in a headless Copilot session.
+- **P2** — Hooks for auto-activation on skill-capable hosts (Claude Code, Codex).
+- **P3** — Live-try playground on landing page (paste code → get delete-list). Deliberately deferred; core value doesn't need it.

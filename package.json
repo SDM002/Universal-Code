@@ -1,0 +1,41 @@
+{
+  "name": "@sdm002/laconic",
+  "version": "0.1.0",
+  "description": "Write less. Ship more. A minimalism ruleset for AI coding agents (Antigravity, VS Code Copilot, Claude Code, Codex, Cursor, Windsurf, Cline).",
+  "keywords": [
+    "ai",
+    "agent",
+    "coding-agent",
+    "prompt",
+    "skill",
+    "antigravity",
+    "vscode",
+    "copilot",
+    "claude-code",
+    "codex",
+    "cursor",
+    "minimalism",
+    "yagni",
+    "code-review",
+    "open-source"
+  ],
+  "license": "MIT",
+  "author": "SDM002",
+  "homepage": "https://code-explain-ai-3.emergent.host",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SDM002/Universal-Code.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SDM002/Universal-Code/issues"
+  },
+  "files": [
+    "skills/",
+    "AGENTS.md",
+    ".github/copilot-instructions.md",
+    "gemini-extension.json",
+    "examples/",
+    "LICENSE",
+    "README.md"
+  ]
+}
