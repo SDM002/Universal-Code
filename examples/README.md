@@ -15,6 +15,13 @@ Real over-built patterns and their laconic one-liners. Each file shows the same 
 
 Each example ends with the **exact ladder rung** that landed. Read them in order or by rung — they all show the same principle.
 
+Run the [bench harness](../bench/) to see the aggregate reduction across all examples:
+
+```bash
+node bench/run.mjs
+# TOTAL     before: 143      after: 46      saved: 97 (68%)
+```
+
 ## Want to add one?
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md#what-we-accept). PRs to `examples/` are the fastest way to sharpen the ruleset — a good example teaches an agent more than a page of rules.

@@ -82,19 +82,50 @@ Universal-Code/
 - Landing page renders cleanly at preview URL — hero, ladder, before/after with new examples CTA, install tabs, commands grid all working.
 - ESLint clean on `App.js`.
 
+**Feb 10, 2026**
+- **New skills**: `skills/laconic-tests.md` (smallest test that would have caught the bug) and `skills/laconic-security.md` (trust-boundary audit, ranked by exploitability). Command count: 5 → 7.
+- **New language sheets**: `skills/lang/rust.md` and `skills/lang/typescript.md` (dedicated type-system cheat sheet complementing js.md). Languages covered: 3 → 5.
+- **Benchmark harness** (`bench/run.mjs`) — zero-dep Node script that auto-discovers `## Before` / `## After` blocks in every example and prints a reduction table (or JSON via `--json`). Current numbers: **143 → 46 lines, 68% saved across 7 examples**. Documented in `bench/README.md`.
+- **npm publish prep**: `package.json` gained `type: "module"`, `bench` / `bench:json` scripts, `publishConfig.access: public`. `.npmignore` added to keep `frontend/`, `backend/`, `tests/`, CI workflows and issue templates out of the shipped tarball. `bench/` added to the `files` allow-list.
+- **Landing page polish**:
+  - Stats bar (**97 lines saved · 68% avg reduction · 8 examples · 0 API keys**).
+  - Before/after section is now a live picker across 4 diffs (React date picker, JS deep-clone, Python retry, Go slice utils) — each shows the exact ladder rung that landed and the live line count.
+  - Commands grid now shows all 7 (added `/laconic-tests` and `/laconic-security`).
+- README updated: new commands, new languages, bench section, refreshed repo layout tree.
+
+## Repo structure (Feb 10, 2026)
+
+```
+Universal-Code/
+├── skills/
+│   ├── laconic.md
+│   ├── laconic-{review,explain,libs,minimal,tests,security}.md
+│   └── lang/{python,js,typescript,go,rust}.md
+├── examples/                        8 before/after files
+├── bench/                           run.mjs + README.md (zero-dep harness)
+├── AGENTS.md
+├── gemini-extension.json
+├── .github/{copilot-instructions.md, ISSUE_TEMPLATE/, workflows/lint.yml, …}
+├── frontend/                        React landing page (deployed live)
+├── backend/                         minimal FastAPI health check
+├── package.json                     @sdm002/laconic, npm-publishable
+├── .npmignore                       keeps frontend/backend/CI out of the tarball
+├── LICENSE (MIT), README.md, CONTRIBUTING.md, SECURITY.md
+```
+
 ## What's next (user needs to do)
 
-1. **Push to GitHub** — use Emergent's "Save to GitHub" button in the chat input → connect to `SDM002/Universal-Code`. `.gitignore` will exclude `/memory`, `/test_reports`, `/design_guidelines.json`.
-2. **Repo settings on GitHub** — set to Public, add topics (`ai-agent`, `ai-coding`, `antigravity`, `copilot`, `minimalism`, `open-source`, `yagni`, `code-review`), enable Discussions, add the live URL as the repo website.
+1. **Push to GitHub** — use Emergent's "Save to GitHub" button in the chat input → connect to `SDM002/Universal-Code`.
+2. **Repo settings on GitHub** — set Public, add topics, enable Discussions, add the live URL as the repo website.
 3. **npm publish** (locally): `npm login` → create `@sdm002` scope on npmjs.com (free) → `npm publish --access public`.
-4. **Contest submission** — email support@emergent.sh for Raj Shamani contest official rules; the project is submission-ready (deployed, public repo, README, examples).
-5. **GitHub social preview image** — `.github/preview.png` for the card that renders on X/LinkedIn shares.
+4. **Contest submission** — email support@emergent.sh for Raj Shamani contest official rules; project is submission-ready.
+5. **GitHub social preview image** — `.github/preview.png` for share cards.
 
 ## Backlog
 
 - **P1** — Cursor / Windsurf / Cline mirror rule files (currently only documented in README).
 - **P1** — Discord / Discussions link (placeholder in CONTRIBUTING.md and SECURITY.md).
-- **P2** — Rust / Ruby / PHP / Kotlin language sheets.
-- **P2** — `benchmarks/` — reproduce ponytail-style "% less code" measurement in a headless Copilot session.
+- **P2** — Java / Ruby / PHP / Kotlin language sheets.
+- **P2** — Benchmark: reproduce ponytail-style measurement in a headless Copilot session (upgrade beyond the current static harness).
 - **P2** — Hooks for auto-activation on skill-capable hosts (Claude Code, Codex).
-- **P3** — Live-try playground on landing page (paste code → get delete-list). Deliberately deferred; core value doesn't need it.
+- **P3** — Live-try playground on landing page (paste code → get delete-list). Deliberately deferred.

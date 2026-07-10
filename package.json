@@ -2,6 +2,14 @@
   "name": "@sdm002/laconic",
   "version": "0.1.0",
   "description": "Write less. Ship more. A minimalism ruleset for AI coding agents (Antigravity, VS Code Copilot, Claude Code, Codex, Cursor, Windsurf, Cline).",
+  "type": "module",
+  "scripts": {
+    "bench": "node bench/run.mjs",
+    "bench:json": "node bench/run.mjs --json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "ai",
     "agent",
@@ -35,6 +43,7 @@
     ".github/copilot-instructions.md",
     "gemini-extension.json",
     "examples/",
+    "bench/",
     "LICENSE",
     "README.md"
   ]

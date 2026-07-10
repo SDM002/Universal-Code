@@ -69,7 +69,14 @@ const INSTALLS = {
   },
 };
 
-const BEFORE = `// User: "add a date picker"
+const DIFFS = [
+  {
+    id: "date-picker",
+    title: "React date picker",
+    lang: "tsx",
+    file: "BirthdayField.tsx",
+    rung: "rung 4 · native platform",
+    before: `// User: "add a date picker"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
@@ -84,10 +91,84 @@ export function BirthdayField() {
       placeholderText="YYYY-MM-DD"
     />
   );
-}`;
+}`,
+    after: `// laconic: the browser has one
+<input type="date" name="birthday" />`,
+  },
+  {
+    id: "deep-clone",
+    title: "Deep clone in JS",
+    lang: "js",
+    file: "clone.js",
+    rung: "rung 4 · native platform",
+    before: `function deepClone(obj) {
+  if (obj === null || typeof obj !== "object") return obj;
+  if (Array.isArray(obj)) return obj.map(deepClone);
+  const out = {};
+  for (const k in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, k)) {
+      out[k] = deepClone(obj[k]);
+    }
+  }
+  return out;
+}`,
+    after: `// laconic: the platform has one
+const copy = structuredClone(value);`,
+  },
+  {
+    id: "python-retry",
+    title: "Python HTTP retry",
+    lang: "python",
+    file: "fetch.py",
+    rung: "rung 6 · earned library (tenacity)",
+    before: `import time, requests
+def fetch(url, tries=3, delay=1):
+    for i in range(tries):
+        try:
+            r = requests.get(url, timeout=5)
+            r.raise_for_status()
+            return r.json()
+        except requests.RequestException:
+            if i == tries - 1: raise
+            time.sleep(delay * (2 ** i))`,
+    after: `from tenacity import retry, stop_after_attempt, wait_exponential
+import httpx
 
-const AFTER = `// laconic: the browser has one
-<input type="date" name="birthday" />`;
+@retry(stop=stop_after_attempt(3), wait=wait_exponential())
+def fetch(url):
+    return httpx.get(url, timeout=5).raise_for_status().json()`,
+  },
+  {
+    id: "go-slice",
+    title: "Go slice utils",
+    lang: "go",
+    file: "utils.go",
+    rung: "rung 3 · stdlib (slices)",
+    before: `func Contains(xs []int, v int) bool {
+  for _, x := range xs {
+    if x == v { return true }
+  }
+  return false
+}
+
+func Max(xs []int) int {
+  m := xs[0]
+  for _, x := range xs { if x > m { m = x } }
+  return m
+}`,
+    after: `import "slices"
+
+slices.Contains(xs, v)
+slices.Max(xs)`,
+  },
+];
+
+const STATS = [
+  { k: "97", v: "lines saved" },
+  { k: "68%", v: "avg reduction" },
+  { k: "8", v: "before/after examples" },
+  { k: "0", v: "API keys required" },
+];
 
 const COMMANDS = [
   { c: "/laconic", d: "Show the ladder & current mode.", icon: Terminal },
@@ -95,6 +176,8 @@ const COMMANDS = [
   { c: "/laconic-explain", d: "Line-by-line what / why / how.", icon: BookOpen },
   { c: "/laconic-libs", d: "Suggest real open-source libraries.", icon: Package },
   { c: "/laconic-minimal", d: "Rewrite as the minimum that works.", icon: Wand2 },
+  { c: "/laconic-tests", d: "Smallest test that would have caught it.", icon: MonitorCheck },
+  { c: "/laconic-security", d: "Trust-boundary audit, ranked by exploit.", icon: ShieldCheck },
 ];
 
 /* ---------------- UI Bits ---------------- */
@@ -159,6 +242,8 @@ function CodeBlock({ code, lang, label }) {
 
 const Home = () => {
   const [tab, setTab] = useState("antigravity");
+  const [diffId, setDiffId] = useState(DIFFS[0].id);
+  const diff = DIFFS.find((d) => d.id === diffId);
 
   useEffect(() => {
     axios.get(`${API}/`).catch(() => {});
@@ -291,26 +376,59 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Before / After */}
+      {/* Stats bar */}
+      <section id="stats" className="border-b border-white/10 bg-neutral-950/40">
+        <div className="max-w-6xl mx-auto px-6 md:px-10 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+          {STATS.map((s) => (
+            <div key={s.v} data-testid={`stat-${s.v.replace(/\s+/g, "-")}`}>
+              <p className="font-display font-black text-4xl md:text-5xl text-cyan-400 tracking-tighter">{s.k}</p>
+              <p className="text-xs font-mono text-neutral-500 mt-1 uppercase tracking-wider">{s.v}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Before / After — live picker */}
       <section id="example" className="border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 md:px-10 py-24">
           <p className="text-cyan-400 font-mono text-xs mb-3">02 / before &amp; after</p>
           <h2 className="font-display font-bold text-4xl md:text-5xl tracking-tight text-white leading-tight max-w-3xl">
-            You asked for a date picker.
+            Same prompt.<br />Different agent.
           </h2>
           <p className="mt-4 text-neutral-400 max-w-2xl">
-            Without laconic, your agent installs a package, writes a wrapper, imports a stylesheet, and starts a
-            discussion about timezones.
+            Pick a real prompt below. On the left, what your agent typically writes. On the right, what it writes with
+            laconic loaded.
           </p>
 
-          <div className="mt-10 grid md:grid-cols-2 gap-6" style={{ minHeight: 340 }}>
+          <div className="mt-10 flex flex-wrap gap-2">
+            {DIFFS.map((d) => (
+              <button
+                key={d.id}
+                data-testid={`diff-tab-${d.id}`}
+                onClick={() => setDiffId(d.id)}
+                className={`text-xs font-mono px-3 py-1.5 rounded-md border transition-colors ${
+                  diffId === d.id
+                    ? "border-cyan-400 text-cyan-400 bg-cyan-400/5"
+                    : "border-white/10 text-neutral-500 hover:border-white/30 hover:text-neutral-300"
+                }`}
+              >
+                {d.title}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-6 grid md:grid-cols-2 gap-6" style={{ minHeight: 340 }}>
             <div>
-              <p className="text-xs font-mono text-red-400/80 mb-2">// without laconic — 14 lines</p>
-              <CodeBlock code={BEFORE} lang="tsx" label="BirthdayField.tsx" />
+              <p className="text-xs font-mono text-red-400/80 mb-2">
+                // without laconic — {diff.before.split("\n").length} lines
+              </p>
+              <CodeBlock code={diff.before} lang={diff.lang} label={diff.file} />
             </div>
             <div>
-              <p className="text-xs font-mono text-cyan-400 mb-2">// with laconic — 1 line</p>
-              <CodeBlock code={AFTER} lang="html" label="BirthdayField.tsx" />
+              <p className="text-xs font-mono text-cyan-400 mb-2">
+                // with laconic — {diff.after.split("\n").length} lines · {diff.rung}
+              </p>
+              <CodeBlock code={diff.after} lang={diff.lang} label={diff.file} />
             </div>
           </div>
 
@@ -378,7 +496,7 @@ const Home = () => {
             <div className="md:col-span-4">
               <p className="text-cyan-400 font-mono text-xs mb-3">04 / commands</p>
               <h2 className="font-display font-bold text-4xl md:text-5xl tracking-tight text-white leading-tight">
-                Five commands.<br />No more.
+                Seven commands.<br />No more.
               </h2>
               <p className="mt-6 text-neutral-400 leading-relaxed">
                 Available in skill-capable hosts (Antigravity, Claude Code, Codex, OpenCode). In VS Code Copilot Chat,

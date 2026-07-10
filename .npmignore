@@ -1,0 +1,12 @@
+# laconic ships markdown + the tiny bench harness. nothing else.
+frontend/
+backend/
+tests/
+node_modules/
+.git/
+.github/workflows/
+.github/ISSUE_TEMPLATE/
+.github/PULL_REQUEST_TEMPLATE.md
+.emergent/
+*.log
+.DS_Store

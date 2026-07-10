@@ -103,6 +103,8 @@ Available in skill-capable agents (Antigravity, Claude Code, Codex, OpenCode, an
 | `/laconic-explain` | Line-by-line **what / why / how** for the current file or selection. |
 | `/laconic-libs` | Suggest existing open-source libraries that would replace the code. Real packages only. |
 | `/laconic-minimal` | Rewrite the current code as the minimum that works. Preserves behavior, security, and accessibility. |
+| `/laconic-tests` | Write the smallest test that would have caught the bug. No new test-framework deps. |
+| `/laconic-security` | Trust-boundary audit of the current diff. Ranked by exploitability, not CVSS theatre. |
 
 In VS Code Copilot Chat (no `/skills` support), just paste the intent into chat: _"review this diff with laconic"_, _"explain this function laconic-style"_, _"suggest a library instead of this hand-rolled code"_.
 
@@ -111,10 +113,33 @@ In VS Code Copilot Chat (no `/skills` support), just paste the intent into chat:
 Per-language memory banks so the agent stops reinventing stdlib:
 
 - **Python** — [`skills/lang/python.md`](./skills/lang/python.md)
-- **JavaScript / TypeScript / React / Node** — [`skills/lang/js.md`](./skills/lang/js.md)
+- **JavaScript / Node** — [`skills/lang/js.md`](./skills/lang/js.md)
+- **TypeScript** — [`skills/lang/typescript.md`](./skills/lang/typescript.md)
 - **Go** — [`skills/lang/go.md`](./skills/lang/go.md)
+- **Rust** — [`skills/lang/rust.md`](./skills/lang/rust.md)
 
 Want another language? [Open an issue](https://github.com/SDM002/Universal-Code/issues/new?template=new-language-sheet.md) or send a PR.
+
+## Extra skills
+
+- [`skills/laconic-tests.md`](./skills/laconic-tests.md) — write the smallest test that would have caught the bug.
+- [`skills/laconic-security.md`](./skills/laconic-security.md) — trust-boundary audit; no CVSS theatre.
+
+## Benchmark
+
+How lazy is laconic? Run the harness:
+
+```bash
+node bench/run.mjs
+```
+
+Current numbers across the examples in this repo:
+
+```
+TOTAL       before: 143 lines      after: 46 lines      saved: 97 lines (68%)
+```
+
+The harness reads every `## Before` / `## After` block under `examples/`. Add an example — the bench picks it up automatically. See [`bench/README.md`](./bench/README.md).
 
 ---
 
@@ -136,9 +161,10 @@ The code you never wrote has zero bugs, zero CVEs, zero maintenance, and 100% up
 Universal-Code/
 ├── skills/                 the ruleset — this is what plugs into agents
 │   ├── laconic.md          the main always-on ladder
-│   ├── laconic-*.md        four skill commands (review, explain, libs, minimal)
-│   └── lang/               per-language stdlib cheat sheets
+│   ├── laconic-*.md        skill commands (review, explain, libs, minimal, tests, security)
+│   └── lang/               per-language stdlib cheat sheets (py, js, ts, go, rust)
 ├── examples/               before / after gallery (start here if you're new)
+├── bench/                  zero-dep harness — measures reduction across examples
 ├── AGENTS.md               universal file most agents auto-load
 ├── gemini-extension.json   Antigravity / Gemini CLI plugin manifest
 ├── .github/
