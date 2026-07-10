@@ -13,6 +13,12 @@ app = FastAPI(title="Laconic")
 api_router = APIRouter(prefix="/api")
 
 
+@app.get("/health")
+async def liveness() -> dict[str, str]:
+    # kubernetes liveness probe hits the pod directly, bypassing the /api ingress rewrite
+    return {"status": "ok"}
+
+
 @api_router.get("/")
 async def root() -> dict[str, str]:
     return {"service": "laconic", "tagline": "The best code is the code you never wrote."}
