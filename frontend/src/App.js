@@ -377,7 +377,7 @@ const Home = () => {
       <section id="stats" className="border-b border-white/10 bg-neutral-950/40">
         <div className="max-w-6xl mx-auto px-6 md:px-10 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
           {STATS.map((s) => (
-            <div key={s.v} data-testid={`stat-${s.v.replace(/\s+/g, "-")}`}>
+            <div key={s.v} data-testid={`stat-${s.v.replace(/\W+/g, "-")}`}>
               <p className="font-display font-black text-4xl md:text-5xl text-cyan-400 tracking-tighter">{s.k}</p>
               <p className="text-xs font-mono text-neutral-500 mt-1 uppercase tracking-wider">{s.v}</p>
             </div>

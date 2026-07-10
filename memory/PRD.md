@@ -83,6 +83,12 @@ Universal-Code/
 - ESLint clean on `App.js`.
 
 **Feb 10, 2026**
+- **App.js**: removed a dead `useEffect` that fired `axios.get(/api/)` and discarded the result (YAGNI, rung 1). Also dropped the `axios` import — no longer used anywhere in the frontend.
+- **App.js**: extracted the hero terminal's inline `lines={[…]}` array to a module-level `HERO_TERMINAL_LINES` const.
+- **App.js**: sanitized stats test-ids (`stat-${label.replace(/\W+/g, "-")}`) so labels containing `/` produce valid dash-separated ids.
+- **backend/server.py**: added return type hints to all three functions (`root`, `health`, `shutdown_db_client`). Then deleted the entire `motor` MongoDB client, `mongo_url`, `db`, and `shutdown_db_client` — nothing was using it. The backend is now a pure two-endpoint health-check, aligning with the "zero backend" promise on the landing page.
+- **Rejected 4 scanner false positives** (documented in main-agent response): shadcn/ui `use-toast.js` untouched (module-level singletons, not stale closures); static array-index keys kept (`TerminalBox.lines` never reorders); 355-line `Home` component kept as-is (splitting into 8 files serves nobody).
+- **Testing**: `testing_agent_v3_fork` reported 100% pass on both frontend and backend after these changes.
 - **New skills**: `skills/laconic-tests.md` (smallest test that would have caught the bug) and `skills/laconic-security.md` (trust-boundary audit, ranked by exploitability). Command count: 5 → 7.
 - **New language sheets**: `skills/lang/rust.md` and `skills/lang/typescript.md` (dedicated type-system cheat sheet complementing js.md). Languages covered: 3 → 5.
 - **Benchmark harness** (`bench/run.mjs`) — zero-dep Node script that auto-discovers `## Before` / `## After` blocks in every example and prints a reduction table (or JSON via `--json`). Current numbers: **143 → 46 lines, 68% saved across 7 examples**. Documented in `bench/README.md`.
