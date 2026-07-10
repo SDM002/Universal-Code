@@ -19,12 +19,12 @@ api_router = APIRouter(prefix="/api")
 
 
 @api_router.get("/")
-async def root():
+async def root() -> dict[str, str]:
     return {"service": "laconic", "tagline": "The best code is the code you never wrote."}
 
 
 @api_router.get("/health")
-async def health():
+async def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
@@ -42,5 +42,5 @@ logging.basicConfig(level=logging.INFO)
 
 
 @app.on_event("shutdown")
-async def shutdown_db_client():
+async def shutdown_db_client() -> None:
     mongo_client.close()

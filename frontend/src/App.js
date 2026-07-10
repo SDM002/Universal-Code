@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
 import {
   Terminal,
   Github,
@@ -19,6 +18,21 @@ import {
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
+
+const HERO_TERMINAL_LINES = [
+  "# antigravity",
+  "$ agy plugin install \\",
+  "    github.com/SDM002/Universal-Code",
+  "",
+  "# vs code (copilot chat)",
+  "$ curl -o .github/\\",
+  "  copilot-instructions.md \\",
+  "  https://raw.githubusercontent.com/\\",
+  "  SDM002/Universal-Code/main/\\",
+  "  .github/copilot-instructions.md",
+  "",
+  "laconic: active · full mode",
+];
 
 /* ---------------- Data ---------------- */
 
@@ -245,10 +259,6 @@ const Home = () => {
   const [diffId, setDiffId] = useState(DIFFS[0].id);
   const diff = DIFFS.find((d) => d.id === diffId);
 
-  useEffect(() => {
-    axios.get(`${API}/`).catch(() => {});
-  }, []);
-
   return (
     <div className="min-h-screen bg-black text-neutral-200 grain relative">
       {/* Nav */}
@@ -322,20 +332,7 @@ const Home = () => {
           <div className="md:col-span-5 rise" style={{ animationDelay: "120ms" }}>
             <TerminalBox
               testid="hero-terminal"
-              lines={[
-                "# antigravity",
-                "$ agy plugin install \\",
-                "    github.com/SDM002/Universal-Code",
-                "",
-                "# vs code (copilot chat)",
-                "$ curl -o .github/\\",
-                "  copilot-instructions.md \\",
-                "  https://raw.githubusercontent.com/\\",
-                "  SDM002/Universal-Code/main/\\",
-                "  .github/copilot-instructions.md",
-                "",
-                "laconic: active · full mode",
-              ]}
+              lines={HERO_TERMINAL_LINES}
             />
           </div>
         </div>
